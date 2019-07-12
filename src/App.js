@@ -1,12 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
+import {Creators} from './store'
 
-function App() {
+function App(props) {
+  useEffect(() => {
+    console.log('PROPS', props);
+    props.fillUsers();
+  }, [props]);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -23,4 +27,8 @@ function App() {
   );
 }
 
-export default App;
+const mapState = state => state;
+const mapDispatch = dispatch => ({
+  fillUsers: () => dispatch(Creators.fillUsers()),
+});
+export default connect(mapState, mapDispatch)(App);
